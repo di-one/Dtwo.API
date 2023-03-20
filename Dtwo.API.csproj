@@ -5,17 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<Version>1.0.1</Version>
+	<Authors>Dtwo</Authors>
+	<RepositoryUrl>https://github.com/di-one/Dtwo.API</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dtwo.Json\Dtwo.Json.csproj" />
-    <ProjectReference Include="..\Dtwo.Plugins\Dtwo.Plugins.csproj" />
-    <ProjectReference Include="..\Dtwo.Swf\Dtwo.Swf.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="DotNetZip" Version="1.16.0" />
+    <PackageReference Include="Dtwo.Plugins" Version="1.0.1" />
     <PackageReference Include="System.Management" Version="7.0.0" />
   </ItemGroup>
 
