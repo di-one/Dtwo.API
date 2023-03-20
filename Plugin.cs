@@ -30,7 +30,12 @@ namespace Dtwo.API
             OnUnRegisterEvent?.Invoke(this, methodName, typeof(T));
         }
 
-        public void SaveFile(string fileName, string content)
+		/// <summary>
+		/// Save file in the plugin data folder
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <param name="content"></param>
+		public void SaveFile(string fileName, string content)
         {
             var basePath = GetDataPath();
             if (Directory.Exists(basePath) == false)
@@ -41,7 +46,12 @@ namespace Dtwo.API
             File.WriteAllText(Path.Combine(basePath, fileName), content);
         }
 
-        public string LoadFile(string fileName)
+		/// <summary>
+		/// Load file from the plugin data folder
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <returns></returns>
+		public string LoadFile(string fileName)
         {
             var basePath = GetDataPath();
             if (Directory.Exists(basePath) == false)
@@ -61,7 +71,13 @@ namespace Dtwo.API
             return File.ReadAllText(fullPath);
         }
 
-        public T LoadFile<T>(string fileName) where T : class
+		/// <summary>
+		/// Load file from the plugin data folder
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="fileName"></param>
+		/// <returns></returns>
+		public T LoadFile<T>(string fileName) where T : class
         {
             string content = LoadFile(fileName + ".json");
             if (content == null)
@@ -72,7 +88,13 @@ namespace Dtwo.API
             return Json.JSonSerializer<T>.DeSerialize(content);
         }
 
-        public void SaveFile<T>(string fileName, T obj) where T : class
+		/// <summary>
+		/// Save file in the plugin data folder
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="fileName"></param>
+		/// <param name="obj"></param>
+		public void SaveFile<T>(string fileName, T obj) where T : class
         {
             string str = Json.JSonSerializer<T>.Serialize(obj);
 
@@ -82,23 +104,40 @@ namespace Dtwo.API
             }
         }
 
-        public virtual void OnStart()
+		/// <summary>
+		/// Called when the plugin is loaded
+		/// </summary>
+		public virtual void OnStart()
         {
 
         }
 
+        /// <summary>
+        /// Called when all plugins are loaded
+        /// </summary>
         public virtual void OnAllPluginsLoaded()
         {
 
         }
-        #endregion
+		#endregion
 
-        #region Core
-        // Plugin, MethodName, MessageType
-        public Action<Plugin, string, Type> OnRegisterEvent;
-        public Action<Plugin, string, Type> OnUnRegisterEvent;
+		#region Core
+		// Plugin, MethodName, MessageType
+		/// <summary>
+		/// Called when a plugin register an event
+		/// </summary>
+		public Action<Plugin, string, Type> OnRegisterEvent;
+        
+		/// <summary>
+		/// Called when a plugin unregister an event
+		/// </summary>
+		public Action<Plugin, string, Type> OnUnRegisterEvent;
 
-        protected string GetDataPath() => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins", "Data", Infos.Name.Replace(".", "_"));
+		/// <summary>
+		/// Get the plugin data path
+		/// </summary>
+		/// <returns></returns>
+		protected string GetDataPath() => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins", "Data", Infos.Name.Replace(".", "_"));
         #endregion
     }
 }
