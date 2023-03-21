@@ -50,32 +50,51 @@ namespace Dtwo.API
             Priority = priority;
         }
 
-        public static LogMessage LogDefault(string title, string text, int priority = 0)
+		/// <summary>
+		/// Log a message with default type
+		/// </summary>
+		/// <returns></returns>
+		public static LogMessage LogDefault(string title, string text, int priority = 0)
 		{
             return new LogMessage(title, text, MessageType.Default, priority);
 		}
 
-        public static LogMessage LogDefault(string text, int priority = 0)
+		/// <summary>
+		/// Log a message with default type
+		/// </summary>
+		public static LogMessage LogDefault(string text, int priority = 0)
         {
             return new LogMessage(text, MessageType.Default, priority);
         }
 
-        public static LogMessage LogWarning(string title, string text, int priority = 0)
+		/// <summary>
+		/// Log a message with warning type
+		/// </summary>
+		public static LogMessage LogWarning(string title, string text, int priority = 0)
 		{
             return new LogMessage(title, text, MessageType.Warning, priority);
         }
 
-        public static LogMessage LogWarning(string text, int priority = 0)
+		/// <summary>
+		/// Log a message with warning type
+		/// </summary>
+		public static LogMessage LogWarning(string text, int priority = 0)
         {
             return new LogMessage(text, MessageType.Warning, priority);
         }
 
-        public static LogMessage LogError(string title, string text, int priority = 0)
+		/// <summary>
+		/// Log a message with error type
+		/// </summary>
+		public static LogMessage LogError(string title, string text, int priority = 0)
 		{
             return new LogMessage(title, text, MessageType.Error, priority);
         }
 
-        public static LogMessage LogError(string text, int priority = 0)
+		/// <summary>
+		/// Log a message with error type
+		/// </summary>
+		public static LogMessage LogError(string text, int priority = 0)
         {
             return new LogMessage(text, MessageType.Error, priority);
         }
