@@ -10,9 +10,17 @@
 	<RepositoryUrl>https://github.com/di-one/Dtwo.API</RepositoryUrl>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Dtwo.Plugins" Version="1.0.1" />
+  <ItemGroup>  
     <PackageReference Include="System.Management" Version="7.0.0" />
   </ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<PackageReference Include="Dtwo.Plugins" Version="1.0.1" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<ProjectReference Include="../Dtwo.Plugins/Dtwo.Plugins.csproj" />
+		<ProjectReference Include="../Dtwo.Json/Dtwo.Json.csproj" />
+	</ItemGroup>
 
 </Project>
