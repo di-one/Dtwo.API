@@ -10,44 +10,64 @@ namespace Dtwo.API
     {
         public static Action<LogMessage>? OnLog;
 
-        //public static List<LogMessage> _notReadedMessages = new();
-
-        public static void Log(string title, string text, int priority = 0)
+		/// <summary>
+		/// Log a message with a title and a text
+		/// </summary>
+		public static void Log(string title, string text, int priority = 0)
         {
             LogMessage log = LogMessage.LogDefault(title, text, priority);
             LogInternal(log);
         }
 
-        public static void Log(string text, int priority = 0)
+		/// <summary>
+		/// Log a message with a text
+		/// </summary>
+		public static void Log(string text, int priority = 0)
         {
             LogMessage log = LogMessage.LogDefault(text, priority);
             LogInternal(log);
         }
 
-        public static void LogWarning(string title, string text, int priority = 0)
+		/// <summary>
+		/// Log a warning message with a title and a text
+		/// </summary>
+		public static void LogWarning(string title, string text, int priority = 0)
         {
             LogMessage log = LogMessage.LogWarning(title, text, priority);
             LogInternal(log);
         }
 
-        public static void LogWarning(string text, int priority = 0)
+		/// <summary>
+		/// Log a warning message with a text
+		/// </summary>
+		public static void LogWarning(string text, int priority = 0)
         {
             LogMessage log = LogMessage.LogWarning(text, priority);
             LogInternal(log);
         }
 
-        public static void LogError(string title, string text, int priority = 0)
+		/// <summary>
+		/// Log a error message with a title and a text
+		/// </summary>
+		public static void LogError(string title, string text, int priority = 0)
         {
             LogMessage log = LogMessage.LogError(title, text, priority);
             LogInternal(log);
         }
 
-        public static void LogError(string text, int priority = 0)
+		/// <summary>
+		/// Log a error message with a text
+		/// </summary>
+		public static void LogError(string text, int priority = 0)
         {
             LogMessage log = LogMessage.LogError(text, priority);
             LogInternal(log);
         }
 
+        /// <summary>
+        /// Log a message with a LogMessage
+        /// </summary>
+        /// <param name="message"></param>
         public static void Log(LogMessage message)
 		{
             LogInternal(message);
@@ -55,8 +75,6 @@ namespace Dtwo.API
 
         private static void LogInternal(LogMessage message)
         {
-            //_notReadedMessages.Add(message);
-
             OnLog?.Invoke(message);
         }
     }

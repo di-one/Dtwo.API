@@ -9,13 +9,25 @@ namespace Dtwo.API
 {
     public static class PluginsHelper
     {
-        public static List<Assembly> PluginsAssemblies { get; set; } = new List<Assembly>();
+		/// <summary>
+		/// The assemblies of downloaded plugins
+		/// </summary>
+		public static List<Assembly> PluginsAssemblies { get; set; } = new List<Assembly>();
 
-        public static List<Plugin> Plugins { get; set; } = new List<Plugin>();
+		/// <summary>
+		/// The downloaded assemblies
+		/// </summary>
+		public static List<Plugin> Plugins { get; set; } = new List<Plugin>();
 
-        public static Assembly ApiAssembly { get; set; }
+		/// <summary>
+		/// This assembly (assembly of Dtwo.API)
+		/// </summary>
+		public static Assembly ApiAssembly { get; set; }
 
-        public static T GetPlugin<T>() where T : Plugin
+		/// <summary>
+		/// Get a plugin by its type
+		/// </summary>
+		public static T GetPlugin<T>() where T : Plugin
         {
             for (int i = 0; i < Plugins.Count; i++)
             {
