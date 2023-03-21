@@ -29,8 +29,6 @@ namespace Dtwo.API
             if (otherWindow)
             {
                 WindowProcess = ParentProcessUtilities.GetParentProcess(process.Id);
-
-                Console.WriteLine("window hndle : " + WindowProcess.MainWindowHandle);
             }
             else
             {
