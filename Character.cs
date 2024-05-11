@@ -17,8 +17,6 @@ namespace Dtwo.API
 
         public Character(double id, int level, string name, int breed, bool sex)
         {
-            Console.WriteLine($"Create character with id {id} level {level} name {name} breed {breed} sex {sex}");
-
             Id = id;
             Level = level;
             Name = name;

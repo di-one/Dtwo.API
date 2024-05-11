@@ -13,26 +13,22 @@ namespace Dtwo.API
 
         public static List<Plugin> Plugins { get; set; } = new List<Plugin>();
 
-        public static Assembly ApiAssembly { get; set; }
+        public static Assembly? ApiAssembly { get; set; }
 
-        public static T GetPlugin<T>() where T : Plugin
+        public static T? GetPlugin<T>() where T : Plugin
         {
             for (int i = 0; i < Plugins.Count; i++)
             {
-                var plugin = Plugins[i];
+                var plugin = Plugins[i];   
 
-                Console.WriteLine($"GetPlugin {i} type : {plugin.GetType()} t type : {typeof(T).ToString()}"); ;              
-
-                T parsed = plugin as T;
+                T? parsed = plugin as T;
 
                 if (parsed != null)
                 {
-                    Console.WriteLine("parsed");
                     return parsed;
                 }
             }
 
-            Console.WriteLine("not parsed");
             return null;
         }
     }

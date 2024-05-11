@@ -7,28 +7,29 @@ using System.Threading.Tasks;
 
 namespace Dtwo.API
 {
+    /* ExportedMethodAttribute was initially designed for Dtwo.Plugins.GPT,
+     * which allows registering functions in a dictionary and calling them from anywhere. */
+
     [System.AttributeUsage(System.AttributeTargets.Method)]
     public class ExportedMethod : System.Attribute
     {
         private class ExportedMethodValue
         {
-            public Type MethodClassType;
-            public string MethodName;
-            public List<Type> ParametersTypes;
+            public Type? MethodClassType;
+            public string? MethodName;
+            public List<Type>? ParametersTypes;
         }
 
         private static readonly Dictionary<Plugin, Dictionary<string, ExportedMethodValue>> m_exportedMethods = new Dictionary<Plugin, Dictionary<string, ExportedMethodValue>>();
 
         public static void RegisterExportedMethod(Plugin plugin, string methodName, Type classType, List<Type> parametersTypes)
         {
-            Console.WriteLine("Register exported method " + methodName);
-
             if (m_exportedMethods.ContainsKey(plugin) == false)
             {
                 m_exportedMethods.Add(plugin, new Dictionary<string, ExportedMethodValue>());
             }
 
-            Dictionary<string, ExportedMethodValue> events;
+            Dictionary<string, ExportedMethodValue>? events;
             if (m_exportedMethods.TryGetValue(plugin, out events))
             {
                 if (events.ContainsKey(methodName) == false)
@@ -45,7 +46,7 @@ namespace Dtwo.API
 
         public static void UnRegisterExportedEvent(Plugin plugin, string methodName)
         {
-            Dictionary<string, ExportedMethodValue> events;
+            Dictionary<string, ExportedMethodValue>? events;
             if (m_exportedMethods.TryGetValue(plugin, out events))
             {
                 if (events.ContainsKey(methodName) == false)
@@ -57,9 +58,6 @@ namespace Dtwo.API
 
         public static void CallExportedMethod(DofusWindow window, string methodName, string[] parameters, Action action)
         {
-            Console.WriteLine("CallExportedMethod");
-            Console.WriteLine("CallExportedMethod " + methodName + " l : " + parameters.Length + " l2 : " + m_exportedMethods.Count);
-
             for (int i = 0; i < m_exportedMethods.Count(); i++)
             {
                 var evnt = m_exportedMethods.ElementAt(i);
@@ -71,10 +69,29 @@ namespace Dtwo.API
                 {
                     var methodAndParams = evnt.Value.ElementAt(j);
 
+                    if (methodAndParams.Value == null)
+                    {
+                        LogManager.LogWarning($"Error on call exported method : methodAndParams.Value is null");
+                        continue;
+                    }
+
+                    if (methodAndParams.Value.MethodName == null)
+                    {
+                        LogManager.LogWarning($"Error on call exported method : methodAndParams.Value.MethodName is null");
+                        continue;
+                    }
+
                     if (methodAndParams.Key.ToLower() == methodName.ToLower())
                     {
-                        Type pluginType = methodAndParams.Value.MethodClassType;
-                        MethodInfo method = pluginType.GetMethod(methodAndParams.Value.MethodName);
+                        Type? pluginType = methodAndParams.Value.MethodClassType;
+
+                        if (pluginType == null)
+                        {
+                            LogManager.LogWarning($"Error on call exported method : pluginType is null");
+                            continue;
+                        }
+
+                        MethodInfo? method = pluginType.GetMethod(methodAndParams.Value.MethodName);
 
                         if (method != null)
                         {
@@ -95,21 +112,29 @@ namespace Dtwo.API
 
             for (int i = 0; i < parameters.Length; i++)
             {
-                dParameters[i] = StringToDynamic(parameters[i]);
+                var val = StringToDynamic(parameters[i]);
+
+                if (val == null)
+                    continue;
+
+                dParameters[i] = val;
             }
 
             return dParameters;
         }
 
-        private static dynamic StringToDynamic(string str)
+        private static dynamic? StringToDynamic(string str)
         {
             string value = str;
-            string stringType = "";
-
 
             if (str.Contains("["))
             {
-                string[] arrayValues = GetStringArray(str);
+                string[]? arrayValues = GetStringArray(str);
+
+                if (arrayValues == null)
+                {
+                    return null;
+                }
 
                 string firstValue = arrayValues[0];
 
@@ -157,7 +182,7 @@ namespace Dtwo.API
             }
         }
 
-        private static string[] GetStringArray(string str)
+        private static string[]? GetStringArray(string str)
         {
             str = str.Replace("[", "").Replace("]", "");
             var split = str.Split(';');
@@ -183,10 +208,29 @@ namespace Dtwo.API
                 {
                     var methodAndParams = evnt.Value.ElementAt(j);
 
+                    if (methodAndParams.Value == null)
+                    {
+                        LogManager.LogWarning($"Error on call exported method : methodAndParams.Value is null");
+                        continue;
+                    }
+
+                    if (methodAndParams.Value.MethodName == null)
+                    {
+                        LogManager.LogWarning($"Error on call exported method : methodAndParams.Value.MethodName is null");
+                        continue;
+                    }
+
                     if (methodAndParams.Key.ToLower() == methodName.ToLower())
                     {
-                        Type pluginType = methodAndParams.Value.MethodClassType;
-                        MethodInfo method = pluginType.GetMethod(methodAndParams.Value.MethodName);
+                        Type? pluginType = methodAndParams.Value.MethodClassType;
+
+                        if (pluginType == null)
+                        {
+                            LogManager.LogWarning($"Error on call exported method : pluginType is null");
+                            continue;
+                        }
+
+                        MethodInfo? method = pluginType.GetMethod(methodAndParams.Value.MethodName);
 
                         if (method != null)
                         {

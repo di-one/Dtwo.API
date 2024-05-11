@@ -41,12 +41,11 @@ namespace Dtwo.API
             File.WriteAllText(Path.Combine(basePath, fileName), content);
         }
 
-        public string LoadFile(string fileName)
+        public string? LoadFile(string fileName)
         {
             var basePath = GetDataPath();
             if (Directory.Exists(basePath) == false)
             {
-                Console.WriteLine($"Directory {basePath} not found");
                 return null;
             }
 
@@ -54,27 +53,26 @@ namespace Dtwo.API
 
             if (File.Exists(fullPath) == false)
             {
-                Console.WriteLine($"File {fullPath} not found");
                 return null;
             }
 
             return File.ReadAllText(fullPath);
         }
 
-        public T LoadFile<T>(string fileName) where T : class
+        public T? LoadFile<T>(string fileName) where T : class
         {
-            string content = LoadFile(fileName + ".json");
+            string? content = LoadFile(fileName + ".json");
             if (content == null)
             {
                 return null;
             }
 
-            return Json.JSonSerializer<T>.DeSerialize(content);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(content);
         }
 
         public void SaveFile<T>(string fileName, T obj) where T : class
         {
-            string str = Json.JSonSerializer<T>.Serialize(obj);
+            string str = Newtonsoft.Json.JsonConvert.SerializeObject(obj);
 
             if (str != null)
             {
@@ -84,7 +82,6 @@ namespace Dtwo.API
 
         public virtual void OnStart()
         {
-
         }
 
         public virtual void OnAllPluginsLoaded()
@@ -95,8 +92,8 @@ namespace Dtwo.API
 
         #region Core
         // Plugin, MethodName, MessageType
-        public Action<Plugin, string, Type> OnRegisterEvent;
-        public Action<Plugin, string, Type> OnUnRegisterEvent;
+        public Action<Plugin, string, Type>? OnRegisterEvent;
+        public Action<Plugin, string, Type>? OnUnRegisterEvent;
 
         protected string GetDataPath() => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins", "Data", Infos.Name.Replace(".", "_"));
         #endregion

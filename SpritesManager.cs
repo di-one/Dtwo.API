@@ -12,8 +12,6 @@ namespace Dtwo.API
         {
             string str = $@"images/vignettingMiniCharacter/mini_{breed}_{(sex ? 0 : 1)}.png";
 
-            Console.WriteLine(str);
-
             return str;
         }
     }

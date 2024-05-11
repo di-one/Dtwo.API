@@ -14,6 +14,6 @@ namespace Dtwo.API.Configuration
         public string DtwoDataBasePath { get; set; } = "Data";
 
         [DataMember]
-        public string JpexsPath { get; set; }
+        public string JpexsPath { get; set; } = "";
     }
 }

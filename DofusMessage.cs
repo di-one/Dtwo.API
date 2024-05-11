@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dtwo.API.DofusBase.Network.Messages // todo : change namespace
+namespace Dtwo.API.DofusBase.Network.Messages
 {
     [Serializable]
     public abstract class DofusMessage

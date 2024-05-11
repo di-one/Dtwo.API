@@ -9,7 +9,7 @@ namespace Dtwo.API
     public class LogMessage
     {
         public readonly DateTime Date;
-        public readonly string Title;
+        public readonly string? Title;
         public readonly string Text;
         public readonly MessageType Type;
         public readonly int Priority; // Used actually in app for toast (1)

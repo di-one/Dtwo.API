@@ -11,7 +11,6 @@
             {
                 if (a > b)
                 {
-                    LogManager.LogWarning("Utilisation d'une valeur aléatoire avec a > b");
                     int oldA = a;
                     a = Math.Min(a, b);
                     b = Math.Max(oldA, b);
