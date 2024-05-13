@@ -15,5 +15,14 @@ namespace Dtwo.API.Configuration
 
         [DataMember]
         public string JpexsPath { get; set; } = "";
+
+        public PathsConfiguration Clone()
+        {
+            return new PathsConfiguration
+            {
+                DtwoDataBasePath = DtwoDataBasePath,
+                JpexsPath = JpexsPath
+            };
+        }
     }
 }

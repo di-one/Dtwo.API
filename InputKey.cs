@@ -14,5 +14,14 @@ namespace Dtwo.API
         public int KeyId { get; set; }
         [DataMember]
         public string KeyString { get; set; } = "";
+
+        public InputKey Clone()
+        {
+            return new InputKey()
+            {
+                KeyId = KeyId,
+                KeyString = KeyString
+            };
+        }
     }
 }
