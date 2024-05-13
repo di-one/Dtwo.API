@@ -14,7 +14,7 @@ namespace Dtwo.API
         /// <summary>
         /// Window process (parent process)
         /// </summary>
-        public readonly Process? WindowProcess;
+        public readonly Process WindowProcess;
         
         /// <summary>
         /// The character basic informations
