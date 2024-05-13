@@ -9,7 +9,8 @@ namespace Dtwo.API
 {
     public static class Paths
     {
-        public static readonly string ConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "paths.json");
+        public static readonly string ConfigDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "configuration");
+        public static readonly string ConfigPathsPath = Path.Combine(ConfigDirectoryPath, "paths.json");
         public static readonly string DtwoBasePath = AppDomain.CurrentDomain.BaseDirectory;
         
         public static PathsConfiguration Config { get; private set; } = new PathsConfiguration();
@@ -57,7 +58,12 @@ namespace Dtwo.API
 
         private static bool LoadConfig()
         {
-            if (File.Exists(ConfigPath) == false)
+            if (Directory.Exists(ConfigDirectoryPath) == false)
+            {
+                Directory.CreateDirectory(ConfigDirectoryPath);
+            }
+
+            if (File.Exists(ConfigPathsPath) == false)
             {
                 Config = new PathsConfiguration();
                 SaveConfig();
@@ -66,7 +72,7 @@ namespace Dtwo.API
             }
             else
             {
-                Config = Newtonsoft.Json.JsonConvert.DeserializeObject<PathsConfiguration>(File.ReadAllText(ConfigPath));
+                Config = Newtonsoft.Json.JsonConvert.DeserializeObject<PathsConfiguration>(File.ReadAllText(ConfigPathsPath));
 
                 return true;
             } 
@@ -74,7 +80,7 @@ namespace Dtwo.API
 
         public static void SaveConfig()
         {
-            File.WriteAllText(ConfigPath, Newtonsoft.Json.JsonConvert.SerializeObject(Config));
+            File.WriteAllText(ConfigPathsPath, Newtonsoft.Json.JsonConvert.SerializeObject(Config));
             InitPaths();
         }
 
@@ -93,6 +99,12 @@ namespace Dtwo.API
 			Dofus2BindingTypesPath = Path.Combine(DtwoDataPath, "dofus2_binding_types.json");
             Dofus2BindingInfosPath = Path.Combine(DtwoDataPath, "dofus2_binding_infos.json");
             HybrideBindingInfosPath = Path.Combine(DtwoDataPath, "hybride_binding_infos.json");
+        }
+
+        public static void UpdateConfig(PathsConfiguration config)
+        {
+            Config = config;
+            SaveConfig();
         }
     }
 }
