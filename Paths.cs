@@ -42,6 +42,8 @@ namespace Dtwo.API
         public static string? Dofus2BindingInfosPath { get; private set; }
         public static string? HybrideBindingInfosPath { get; private set; }
 
+        public static string? NoServerIpsPath { get; private set;}
+
         public const string BASE_PATH = @".\";
         public const string TEMP_PATH = BASE_PATH + "temp";
         public const string PLUGINS_PATH = BASE_PATH + "plugins";
@@ -99,6 +101,7 @@ namespace Dtwo.API
 			Dofus2BindingTypesPath = Path.Combine(DtwoDataPath, "dofus2_binding_types.json");
             Dofus2BindingInfosPath = Path.Combine(DtwoDataPath, "dofus2_binding_infos.json");
             HybrideBindingInfosPath = Path.Combine(DtwoDataPath, "hybride_binding_infos.json");
+            NoServerIpsPath = Path.Combine(DtwoDataPath, "no_server_ips.json");
         }
 
         public static void UpdateConfig(PathsConfiguration config)
